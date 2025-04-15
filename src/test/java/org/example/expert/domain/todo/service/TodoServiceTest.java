@@ -84,13 +84,16 @@ class TodoServiceTest {
 
 	@Test
 	void 일정_조회_성공() {
+		// given
 		User user = new User("test@test.com", "test1234", UserRole.USER);
 		Todo todo = new Todo("title1", "contents1", "weather1", user);
 
 		given(todoRepository.findByIdWithUser(1L)).willReturn(Optional.of(todo));
 
+		// when
 		TodoResponse res = todoService.getTodo(1L);
 
+		// then
 		assertEquals("title1", res.getTitle());
 		assertEquals("test@test.com", res.getUser().getEmail());
 	}
@@ -100,7 +103,7 @@ class TodoServiceTest {
 		// given
 		when(todoRepository.findByIdWithUser(2L)).thenReturn(Optional.empty());
 
-		// when
+		// when & then
 		InvalidRequestException exception = assertThrows(InvalidRequestException.class,
 			() -> todoService.getTodo(2L));
 		assertEquals("Todo not found", exception.getMessage());

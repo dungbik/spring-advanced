@@ -37,6 +37,8 @@ class UserAdminServiceTest {
 
 		// when
 		userAdminService.changeUserRole(user.getId(), req);
+
+		// then
 		verify(user, times(1)).updateRole(UserRole.ADMIN);
 	}
 
