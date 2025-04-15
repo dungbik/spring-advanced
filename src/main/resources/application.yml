@@ -1,0 +1,8 @@
+jwt:
+  secret:
+    key: mQ1T9sLdu8gq+wPfTOvFuNm5qUCPBzZK3LkVXx2OyRA=
+
+logging:
+  level:
+    org.example.expert.config.AdminApiInterceptor: INFO
+    org.example.expert.config.AdminApiLoggingAspect: INFO
