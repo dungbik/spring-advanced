@@ -49,3 +49,6 @@ if (!todoRepository.existsById(todoId)) {
 | 응답 데이터 처리 | 전체 row 반환 → 엔티티 매핑 | 1개의 값만 반환 → boolean 처리 |
 | 리소스 소비 | 높음 (I/O + 엔티티 생성) | 낮음 (단순 존재 확인) |
 | 성능 | 불필요한 데이터 처리 | 불필요한 처리 제거 |
+
+# Lv 6. 테스트 커버리지
+![test_coverage.png](img/test_coverage.png)
