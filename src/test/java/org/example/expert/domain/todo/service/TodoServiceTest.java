@@ -1,6 +1,6 @@
 package org.example.expert.domain.todo.service;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import java.util.List;
@@ -52,11 +52,11 @@ class TodoServiceTest {
 		TodoSaveResponse res = todoService.saveTodo(authUser, req);
 
 		// then
-		assertThat(res.getTitle()).isEqualTo("title1");
-		assertThat(res.getContents()).isEqualTo("contents1");
-		assertThat(res.getWeather()).isEqualTo("sunny");
-		assertThat(res.getUser().getId()).isEqualTo(1L);
-		assertThat(res.getUser().getEmail()).isEqualTo("test@test.com");
+		assertEquals("title1", res.getTitle());
+		assertEquals("contents1", res.getContents());
+		assertEquals("sunny", res.getWeather());
+		assertEquals(1L, res.getUser().getId());
+		assertEquals("test@test.com", res.getUser().getEmail());
 	}
 
 	@Test
@@ -76,9 +76,9 @@ class TodoServiceTest {
 		Page<TodoResponse> res = todoService.getTodos(1, 10);
 
 		// then
-		assertThat(res.getContent()).hasSize(2);
-		assertThat(res.getContent().get(0).getTitle()).isEqualTo("title1");
-		assertThat(res.getContent().get(1).getTitle()).isEqualTo("title2");
+		assertEquals(2, res.getContent().size());
+		assertEquals("title1", res.getContent().get(0).getTitle());
+		assertEquals("title2", res.getContent().get(1).getTitle());
 	}
 
 	@Test
@@ -90,7 +90,7 @@ class TodoServiceTest {
 
 		TodoResponse res = todoService.getTodo(1L);
 
-		assertThat(res.getTitle()).isEqualTo("title1");
-		assertThat(res.getUser().getEmail()).isEqualTo("test@test.com");
+		assertEquals("title1", res.getTitle());
+		assertEquals("test@test.com", res.getUser().getEmail());
 	}
 }
