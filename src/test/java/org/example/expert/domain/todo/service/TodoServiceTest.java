@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.example.expert.client.WeatherClient;
 import org.example.expert.domain.common.dto.AuthUser;
+import org.example.expert.domain.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.dto.request.TodoSaveRequest;
 import org.example.expert.domain.todo.dto.response.TodoResponse;
 import org.example.expert.domain.todo.dto.response.TodoSaveResponse;
@@ -86,11 +87,22 @@ class TodoServiceTest {
 		User user = new User("test@test.com", "test1234", UserRole.USER);
 		Todo todo = new Todo("title1", "contents1", "weather1", user);
 
-		when(todoRepository.findByIdWithUser(1L)).thenReturn(Optional.of(todo));
+		given(todoRepository.findByIdWithUser(1L)).willReturn(Optional.of(todo));
 
 		TodoResponse res = todoService.getTodo(1L);
 
 		assertEquals("title1", res.getTitle());
 		assertEquals("test@test.com", res.getUser().getEmail());
+	}
+
+	@Test
+	void 존재하지_않는_Todo의_일정_조회시_예외_발생() {
+		// given
+		when(todoRepository.findByIdWithUser(2L)).thenReturn(Optional.empty());
+
+		// when
+		InvalidRequestException exception = assertThrows(InvalidRequestException.class,
+			() -> todoService.getTodo(2L));
+		assertEquals("Todo not found", exception.getMessage());
 	}
 }
